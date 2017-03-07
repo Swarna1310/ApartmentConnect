@@ -1,0 +1,376 @@
+<html>
+  <head>
+  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://api.eventful.com/js/api"></script>
+  	<!--<script src="AngularJS/main.js"></script> -->
+  	<script>
+  	function getEvents() {
+
+
+  	// var a =  document.getElementById("category").value;
+        var a="music || computer || dance || tennis || marathon";
+        var oArgs = {
+            app_key: "Cv6rM5zHHHjjPxhM",
+           q: a,
+           where: "San Jose",
+           l: 95054
+          // l: 95113
+        };
+
+        var content = '';
+
+        //API CALL
+        EVDB.API.call("/events/search", oArgs, function(oData) {
+            //alert(oData);
+            //Get the title for each item
+            for (var i = 0;i < oData.events.event.length;i++) {            	
+                content += 'Title:' + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +oData.events.event[i].title +"<br>";              
+                content += 'Date: ' + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+ oData.events.event[i].start_time.slice(0,10) +"<br>" ;
+                content += 'Time: ' + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+ oData.events.event[i].start_time.slice(11,16) +"<br>" ;              
+                 content += 'Location: ' + oData.events.event[i].venue_name +"<br>" ;
+                  content += '        ' + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +oData.events.event[i].venue_address +"<br>" ;
+                  content += '        ' + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +oData.events.event[i].city_name +"<br>" ;
+                  content += '        ' + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +oData.events.event[i].region_abbr +"&nbsp&nbsp&nbsp"+oData.events.event[i].postal_code+"<br>" ;
+
+                
+          
+               content += "More Information : <a href = '"+oData.events.event[i].url+"' target='_blank'>Click here</a>"+"<br>";
+                
+                content += '---------------------------------------------------------------------------------------'+ '<br><br>';
+ 
+            }
+
+            // Show Data on page
+           document.getElementById("events").innerHTML=content;
+        });
+        }
+  	
+      var app = angular.module('myApp', []);
+app.controller('mainCtrl', function($scope,$window,$http) {
+  
+ $scope.category="1"; 
+ $scope.search = false;
+ $scope.showflag1 = false;
+ $scope.showflag2 = false;
+ 
+ $scope.searchPosts = function()  {   
+     
+            $http.post('/searchPosts',{text:$scope.txtsearch}). 
+            then(function(response) {
+            var data = response.data;
+            $scope.search = true;
+            $scope.posts = data.posts;
+          //  alert("post:"+$scope.posts);
+            },function(response) {
+            console.log(response);
+            });
+  };
+
+$scope.getcatPosts = function(category) {
+ $scope.search = false;
+        $scope.showflag1 = false;
+        $scope.showflag2 = false;
+           $http.post('/getcatPosts',{category : category}). 
+            then(function(response) {
+            var data = response.data;
+            $scope.posts = data.posts;
+            },function(response) {
+            console.log(response);
+            });
+};
+
+$scope.showposts = function()  {  
+        $scope.search = false;
+        $scope.showflag1 = false;
+        $scope.showflag2 = false;
+           $http.get('/getAllPosts'). 
+            then(function(response) {
+            var data = response.data;
+            $scope.posts = data.posts;
+            },function(response) {
+            console.log(response);
+            });
+  };
+
+$scope.post = function()  {   
+      
+           var postval = $scope.message;  
+           var category= $scope.category;    
+            $http.post('/submitPost',{message:$scope.message,category:$scope.category}). 
+            then(function(response) {
+            var data = response.data;
+            var i = data.success;
+            if(i) {
+             $window.alert("Your post has been uploaded!"); 
+             $scope.message = "";
+             $scope.showposts();
+            }
+            },function(response) {
+            console.log(response);
+            });
+  };
+
+$scope.getMessages = function() {
+$scope.showflag1 =true;
+$scope.showflag2 = false;
+   $http.get('/getMessages'). 
+            then(function(response) {
+            var data = response.data;
+            $scope.messages = data.messages;
+            },function(response) {
+            console.log(response);
+            });
+
+
+ };
+
+
+
+$scope.getNeighbours = function() {
+$scope.showflag1 = false;
+$scope.showflag2 = true;
+   $http.get('/getNeighbours'). 
+            then(function(response) {
+            var data = response.data;
+            $scope.neighbours = data.neighbours;
+            },function(response) {
+            console.log(response);
+            });
+
+ };
+ 
+ $scope.getRecommendations = function() {
+   $http.get('/getRecommendations'). 
+            then(function(response) {
+            var data = response.data;
+            $scope.recommendations = data.recommend;
+            },function(response) {
+            console.log(response);
+            });
+
+
+ };
+$scope.redirectToGrp = function(groupid,groupdesc,groupname) {
+$window.alert("group:"+groupid+"~~"+groupdesc);
+$http.post('/redirectToGrp',{ gid:groupid,desc:groupdesc,gname:groupname});
+}
+
+
+
+$scope.getUserProfile = function(userid,name) {
+//alert("user"+userid);
+
+ window.location.href = '/getUserProfile/'+userid;
+}
+
+
+$scope.getData = function() {
+$scope.showposts();
+$scope.getRecommendations();
+};
+
+});
+
+
+  	</script>
+  	<title><%= title %></title>
+<style>
+    .postarea {
+    min-height: 63px;
+    width:632px;
+    overflow:auto;
+    padding:5px;
+    }
+    .fixed {
+    position: fixed;
+    width: 100%;
+    }
+    .confirm {
+  width: 360px;
+  position: fixed;
+  left: auto; 
+  right: 100px;
+   }
+   .border {
+    border-radius:1px;box-shadow: 1px 1px 0px #f1f1f1;
+    padding: 10px;
+    }
+     .divborder {
+    border-radius:2px;box-shadow: 1px 1px 0px #a1a1a1;
+    }
+    .btn-hollow {
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #1e9e5e;
+    background: #fff;
+    color: #1e9e5e;
+    font-weight: 500;
+   }
+   .btn-hollow:hover{
+   background:#1e9e5e;
+   }
+  .postdiv {
+    background-color: #f1f1f1;
+    box-sizing: border-box;
+    padding: 10px;
+    width:652px;
+   }
+   .profile {
+      border: 1px solid #c2c2c2;
+      border-radius: 50%;
+   }
+   
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color:white;
+    background-color:#1e9e5e;
+    }
+
+</style>
+  </head>
+  <body style="background:#ffffff;" ng-app="myApp" ng-controller="mainCtrl" ng-init="getData()">
+ 	 <input type="hidden" ng-model="uid" id="uid" value="<%= id %>" />
+ 	<div class="fixed" style="background-color: #1e9e5e; height: 45px;z-index:100;display: inline">
+ 		<div style="padding-top:6px;padding-left:100px">
+  			 <span style="color:white;font-weight:bold" class="glyphicon glyphicon-home">Neighborhood</span><input style="margin-left:200px" ng-model="txtsearch" type="text" size="40" placeholder="Search"/><button type="button" style="height:28px" ng-click="searchPosts()"><span class="glyphicon glyphicon-search" /></button>
+	 	</div>
+ 	</div>
+ 	<div style="background-image: url('/Images/house1.jpg');height:200px;padding-top:28px">
+ 	<div style="width:700px;color:white;margin-left:200px;padding-top:30px"><h2>Hello <%= name %>, </h2><p><h4>There are 13 of your neighbours using our app and connecting with others doing stuff like hiking, photography, carpooling...</h4>
+ 	</div>
+ 	</div>
+
+
+
+  <!-- Proper tab -->
+  <div class="row" style="left:20px">
+ <div class="col-sm-4"> 
+  <ul class="nav nav-pills nav-stacked" style="width:80%">
+    			<li class="active"><a href="#home" data-toggle="pill" ng-click="showposts()"><span class="glyphicon glyphicon-home">&nbsp&nbspHome</a></li>
+    			<li><a href="#menu" data-toggle="pill" ng-click=""><span class="glyphicon glyphicon-exclamation-sign">&nbsp&nbspCrime Watch</a></li>
+    			<li><a href="#menu1" data-toggle="pill" ng-click="getMessages()"><span class="glyphicon glyphicon-envelope">&nbsp&nbspInbox</a></li>
+    			<li><a href="#menu2" data-toggle="pill" ng-click="getNeighbours()"><span class="glyphicon glyphicon-user"><span class="glyphicon glyphicon-user"> Neighbours</a></li>
+     			<li><a href="/logout"><span class="glyphicon glyphicon-off">&nbsp&nbspLog out</a></li>
+    		</ul>
+   <br>
+   <label>&nbsp&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-tags"> CATEGORIES</label> 
+   <br>
+    <ul class="nav nav-pills nav-stacked" style="width:80%">
+        <li><a href="#" ng-click="getcatPosts(1)">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspGeneral</a></li>
+    <li><a href="#" ng-click="getcatPosts(2)">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspLooking for</a></li>
+    <li><a href="#" ng-click="getcatPosts(3)">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCrime & Safety</a></li>
+    <li><a href="#" ng-click="getcatPosts(4)">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEvents</a></li>
+    </ul>
+    <br>
+    <button style="width:80%" class="btn btn-block" onclick="getEvents()" data-toggle="modal" data-target="#event-modal"><span class="glyphicon glyphicon-calendar">&nbsp&nbspEvents Calender</button>
+   <br>
+     <label>&nbsp&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-ok-circle"> RECOMMENDATIONS</label> 
+   					<ul ng-repeat="rec in recommendations" style="width:80%">
+   	   					<li>
+   	         				Your neighbour <b>{{ rec.firstname }} {{ rec.lastname }}</b> residing in  <b> {{ rec.address }} </b> is also interested in <b> {{ rec.interest }} </b>
+   	         				Connect with <a href="#" ng-click="getUserProfile(rec.user_id,rec.firstname)"> {{ rec.firstname }} </a>
+   	   					</li>
+   					</ul> 
+ </div>
+ <div class="col-sm-8">
+  <div class="tab-content">
+    <div id="home" class="tab-pane active">
+    <br>
+     <p>Select a category:</p>
+    				<div class="postdiv">
+    					<div>
+    						<label class="radio-inline"><input type="radio" name="category" value="1" ng-model="category">General</label>
+    						<label class="radio-inline"><input type="radio" name="category" value="2" ng-model="category">Looking for</label>
+							<label class="radio-inline"><input type="radio" name="category" value="3" ng-model="category">Crime & Safety</label>
+							<label class="radio-inline"><input type="radio" name="category" value="4" ng-model="category">Events</label>
+    					</div>
+   						 <br>
+    
+    					<p><textarea class="postarea" ng-model="message" placeholder="Share with your neighbours"></textarea></p>
+   					</div>
+    				<br>
+				<p>
+						<button type="button" class="btn btn-hollow" ng-click="post()"><span class="glyphicon glyphicon-pencil"/>Share</button>
+						<button type="button" class="btn btn-hollow"><span class="glyphicon glyphicon-trash"/> Clear</button>
+				</p>
+					<br>
+
+			
+
+ 			<div style="align:center;padding-top:10px;top:20px;position: relative;padding-left:20px">
+     			<label ng-show="search"> Search Results </label>
+					<div ng-repeat="post in posts" class="border">
+ 						<div style="width:632px;background-color:#ffffff"><p><a href="#" ng-click="getUserProfile(post.user_id,post.firstname)"><img class="profile" src="/Images/profile.jpeg" height="40px" width="40px"> {{ post.firstname }} {{ post.lastname }}</a> from <label style="color: #1e9e5e;font-size:13px">{{ post.address }}</label></p>
+      					<p>
+      					
+      						{{ post.postdesc }}
+     					</p> 
+       						shared in <label style="color: #9b9999;font-size:13px">{{ post.category }}</label>
+     					<br> 
+ 						</div>
+
+ 					</div>
+ 
+          	</div>
+         
+          		
+    </div>
+    
+    <div id="menu" class="tab-pane">
+    <br>
+        <img src="/Images/crime.png" width="600px height="600px"> </img>
+        <br>
+        <p> A - Assault&nbsp&nbsp&nbsp S - Sexual Assault&nbsp&nbsp&nbsp T - Theft&nbsp&nbsp&nbsp V - Vehicle theft&nbsp&nbsp&nbspTV - Theft from vehicle&nbsp&nbsp&nbspB - Breaking and entering</p>
+    </div>
+    <div id="menu1" class="tab-pane">
+    <br>
+        <div class="border" ng-show="showflag1" ng-repeat="msg in messages">
+               <p> Message from <b><a href="#">{{ msg.firstname }} {{ msg.lastname }}</a><b>     {{ msg.sentdate }} </p>
+               <p> {{ msg.message }} </p>
+               <br>
+        </div>
+    </div>
+    <div ng-show="showflag2" id="menu2" class="tab-pane">
+    <br>
+         <div class="border" ng-repeat="usr in neighbours">
+               <p> <img class="profile" src="/Images/profile.jpeg" height="40px" width="40px"> {{ usr.firstname }} {{ usr.lastname }} </p>
+               <p> resides in  {{ usr.address }} </p>
+               <br>
+         </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+
+<!-- Modal -->
+<div id="event-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #1e9e5e">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Events you may be interested in</h4>
+      </div>
+      <div class="modal-body" id="events">
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-hollow" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- modal ends -->
+
+  </body>
+</html>

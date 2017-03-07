@@ -1,0 +1,369 @@
+<<<<<<< HEAD
+/*
+ *
+ * Template Name: Fullscreen Responsive Register Template
+ * Template URI: http://azmind.com
+ * Author: Anli Zaimi
+ * Author URI: http://azmind.com
+ *
+ */
+
+
+body {
+    background: #f8f8f8;
+    text-align: left;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.map_canvas{
+    width: 670 px;
+    height: 500 px ;
+}
+
+strong { font-weight: 700; }
+.green { color: #1E9E5E; }
+a:hover { text-decoration: none; }
+
+.header {
+    margin: 0 auto;
+    padding-bottom: 5px;
+    background: #f8f8f8 url(/Images/pattern.jpg) left top repeat;
+    border-top: 3px solid #eb4141;
+    -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+}
+
+.logo h1 {
+    padding-left: 50px;
+    font-family: 'Oleo Script', cursive;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.logo h1 a { color: #555; }
+
+.links {
+    text-align: right;
+}
+
+.links a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 15px 0 0 20px;
+}
+
+.links a.home { background: src="http://localhost:4500/Images/home.png" center center no-repeat; }
+.links a.blog { background: url(/Images/blog.png) center center no-repeat; margin-right: 50px; }
+
+.register-container {
+    margin-top: 50px;
+}
+
+/*----- Date of Birth -----*/
+
+.Dobfield {
+    display: inline-block;
+    display: inline;
+}
+
+.Dobfield input{
+    border: none;
+}
+.Dobfield input#day {width: 21%}
+.Dobfield input#month {width: 21%}
+.Dobfield input#year {width: 42%}
+/*----- Date of Birth End-----*/
+/* ----- iPhone ----- */
+
+
+/* ----- Registration Form ----- */
+
+.register form {
+    padding: 20px 50px 40px 50px;
+    background: #f8f8f8 url(/Images/pattern.jpg) left top repeat;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+    text-align: center;
+}
+
+.register form h2 {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px dotted #bbb;
+    font-size: 30px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.register form input {
+    width: 95%;
+    height: 30px;
+    background: #fcfcfc;
+    border: 1px solid #ddd;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.1) inset;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.1) inset;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1) inset;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    color: #888;
+    font-size: 16px;
+}
+
+.register form input:focus {
+    border: 1px solid #ccc;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.register form label {
+    margin: 7px 0 10px 5px;
+    font-size: 16px;
+    text-align: left;
+}
+
+.register form label span {
+    font-style: italic;
+}
+
+.register form input:-moz-placeholder { color: #aaa; }
+.register form input:-ms-input-placeholder { color: #aaa; }
+.register form input::-webkit-input-placeholder { color: #aaa; }
+
+.register form button {
+    cursor: pointer;
+    width: 60%;
+    height: 42px;
+    margin-top: 25px;
+    padding: 0;
+    background: #1E9E5E;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 0;
+    -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -o-transition: all .2s;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+}
+
+.register form button:hover {
+    -moz-box-shadow: 0 -15px 30px 0 rgba(255,255,255,.05) inset;
+    -webkit-box-shadow: 0 -15px 30px 0 rgba(255,255,255,.05) inset;
+    box-shadow: 0 -15px 30px 0 rgba(255,255,255,.05) inset;
+}
+
+.register form button:active {
+    -moz-box-shadow:
+        0 -15px 30px 0 rgba(255,255,255,.05) inset,       
+        0 5px 8px 0 rgba(0,0,0,.1) inset;
+    -webkit-box-shadow:
+        0 -15px 30px 0 rgba(255,255,255,.05) inset,       
+        0 5px 8px 0 rgba(0,0,0,.1) inset;
+    box-shadow:
+        0 -15px 30px 0 rgba(255,255,255,.05) inset,       
+        0 5px 8px 0 rgba(0,0,0,.1) inset;
+}
+
+
+/* ----- Media queries ----- */
+
+
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+    .register form h2 { background: none; }
+
+}
+
+@media (max-width: 767px) {
+
+    body { padding-left: 0; padding-right: 0; }
+
+    .logo, .links { text-align: center; }
+
+    .links { padding-bottom: 5px; }
+
+    .logo h1 { padding-left: 0; }
+
+    .links a.home { margin-left: 0; }
+
+    .links a.blog { margin-right: 0; }
+
+    .register-container { padding-left: 20px; padding-right: 20px; }
+
+    .register form h2 { background: none; }
+
+    .iphone img { display: none; }
+
+}
+
+@media (max-width: 480px) {
+
+    .register form button { width: 97%; }
+
+}
+
+
+=======
+body {
+  
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+div.bs-example
+{
+	margin: 0 auto;
+	margin-left:5%;
+	width: 20%;
+	float : left;
+}
+
+div.product_content
+{
+	margin-left:5%;
+	width:63%;
+}
+
+div.product_content h3 
+{
+	margin :0;
+	margin-bottom:4%;
+}
+
+div.rows-container div.span3
+{
+	margin-right:5%;
+	border: 1px black solid;
+	padding: 2%;
+	margin-bottom: 5%;
+}
+div.rows-container div.span3 p
+{
+	width:68%;
+}
+
+input.quantity
+{
+	width: 10%;
+}
+
+form.afterSignIn
+{
+	width:420px;
+	margin:0 auto;
+	margin-top: 8%;
+}
+
+div.col-sm-10
+{
+	margin-bottom:10px;
+}
+
+.usernameDiv
+{
+	margin-left: 10%;
+	width:100%;
+}
+
+div.usernameDiv div.col-sm-10
+{
+	padding-left:0px;
+}
+
+.signIn
+{
+	margin-left : 10%;
+}
+
+.signuplink
+{
+	margin-left : 35%;
+}
+
+#if-part
+{
+	color : red;
+	margin-left: 26%;
+}
+
+#if-part1
+{
+	color : red;
+	margin-left: 45%;
+	margin-top : 4%;
+}
+
+.signupPage
+{
+	width: 51%;
+	margin: 0 auto;
+	margin-top : 4%;
+}
+
+.addCatalog
+{
+	float: left;
+	border: 1px solid black;
+	margin-left: 10%;	
+}
+
+.labelProduct
+{
+	margin-left: 16px;
+	margin-top: 10px;
+}
+.category_list
+{
+	clear : left;
+}
+
+.category_list1
+{
+	clear: right;
+margin-top: 10px;
+margin-left: 20px;
+}
+
+.common_css
+{
+	clear : both;
+	float: left;	
+}
+
+.checkoutBody
+{
+	margin: 0 auto;
+width: 900px;
+margin-top: 8%;
+}
+
+.lastLogin
+{
+	font-weight: 100;
+font-size: 14px;
+}
+>>>>>>> 436bfb09201106c99a0dddfb915a74cfc10a787d
